@@ -5,14 +5,18 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # SECURITY
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-8$k2m#9pLx4!vQz7@nR3wE5tY6uI0oP1aS2dF3gH4jK5lZ')
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['*']  # Render gives you a domain. Change to your domain later
+ALLOWED_HOSTS = ['*']  # Change to ['your-app.onrender.com', 'yourdomain.com'] later
 
+# Security for login on Render HTTPS
+CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = 'Lax'
 
 # Application definition
 INSTALLED_APPS = [
@@ -57,7 +61,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'carrental.wsgi.application'
 
-
 # Database - Use Render Postgres
 DATABASES = {
     'default': dj_database_url.config(
@@ -65,7 +68,6 @@ DATABASES = {
         conn_max_age=600
     )
 }
-
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -75,13 +77,11 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
 # Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Africa/Kigali'
 USE_I18N = True
 USE_TZ = True
-
 
 # Static files and Media files
 STATIC_URL = '/static/'
@@ -93,14 +93,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.environ.get('MEDIA_ROOT', BASE_DIR / 'media')
 
-
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Auth redirects
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
-
 
 # Email - READ FROM ENVIRONMENT VARIABLES
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
