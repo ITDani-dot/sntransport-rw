@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book {{ car.name }} - SN Transport</title>
+    {% load static %}
+    <style>
+        body { background: #1a1200; color: white; font-family: 'Segoe UI', sans-serif; padding: 40px; }
+        .container { max-width: 600px; margin: 50px auto; background: #2d1f00; padding: 30px; border-radius: 12px; }
+        h1 { color: #d4af37; text-align: center; margin-bottom: 20px; }
+        .car-preview { text-align: center; margin-bottom: 20px; }
+        .car-preview img { width: 100%; border-radius: 8px; }
+        form p { margin-bottom: 15px; }
+        form label { display: block; margin-bottom: 5px; color: #d4af37; }
+        form input, form textarea { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #444; background: #1a1200; color: white; }
+        .btn { background: #d4af37; color: #1a1200; padding: 12px; border: none; width: 100%; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer; }
+        .btn:hover { background: #c49b2e; }
+        a { color: #d4af37; text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Book {{ car.name }}</h1>
+    <div class="car-preview">
+        <img src="{{ car.image.url }}" alt="{{ car.name }}">
+        <p><strong>{{ car.brand }}</strong> - {{ car.price_per_day }} RWF / day</p>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">SEND BOOKING REQUEST</button>
+    </form>
+    <br>
+    <a href="{% url 'home' %}">← Back to Cars</a>
+</div>
+</body>
+</html>

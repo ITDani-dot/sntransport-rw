@@ -1,0 +1,10 @@
+{% extends 'cars/base.html' %}
+
+{% block content %}
+<div class="alert alert-success mt-4">
+    <h2>Booking Successful!</h2>
+    <p>Thank you {{ booking.customer_name }} for booking {{ car.brand }} {{ car.name }}. 
+    We will contact you soon.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+</div>
+{% endblock %}

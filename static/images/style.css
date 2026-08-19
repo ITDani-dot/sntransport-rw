@@ -1,0 +1,8 @@
+body { background: #f8f9fa; font-family: 'Poppins', sans-serif; }
+.car-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; padding: 40px; }
+.car-card { background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+.car-card img { width: 100%; height: 200px; object-fit: cover; }
+.car-info { padding: 20px; }
+.price { color: #d4af37; font-size: 24px; font-weight: bold; }
+.specs { display: flex; gap: 15px; margin: 10px 0; color: #666; }
+.btn-book { background: #d4af37; color: white; padding: 10px 20px; border: none; border-radius: 8px; width: 100%; }
