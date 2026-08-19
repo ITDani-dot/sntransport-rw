@@ -125,5 +125,4 @@ DATABASES = {
 
 # Static files for Render
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.environ.get('MEDIA_ROOT')
+
