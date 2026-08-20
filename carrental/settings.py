@@ -8,8 +8,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-change-me')
-DEBUG = False
-ALLOWED_HOSTS = ['sntransport-rw.onrender.com', 'localhost', '127.0.0.1']
+DEBUG = True  # <-- TURNED ON TO SEE ERRORS
+ALLOWED_HOSTS = ['sntransport-rw.onrender.com', 'localhost', '127.0.1', '*']
 
 
 # Application definition
@@ -25,7 +25,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # for static files
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
