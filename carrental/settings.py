@@ -1,12 +1,12 @@
-import os
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-change-this-to-a-random-string'
+SECRET_KEY = 'django-insecure-change-this-to-something-random-in-production'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -15,7 +15,6 @@ ALLOWED_HOSTS = ['sntransport-rw.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -23,14 +22,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whitenoise.runserver_nostatic', # for static files
-    'cars',
-    'notifications',
+    'cars', # your app
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # must be right after SecurityMiddleware
+    'whitenoise.middleware.WhiteNoiseMiddleware', # FOR STATIC/CSS ON RENDER
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -39,12 +36,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'carrental.urls'
+ROOT_URLCONF = 'sntransport.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -52,15 +49,16 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'sntransport.settings.company_context', # for {{ company_name }} etc
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'carrental.wsgi.application'
+WSGI_APPLICATION = 'sntransport.wsgi.application'
 
 
-# Database - for Render use SQLite for now or Postgres later
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -85,21 +83,23 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files - THIS FIXES YOUR LOGO
+# Static files CSS, JS, Images
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-# Media files - for car images
+# Media files - FOR UPLOADING CAR IMAGES
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
-
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Context data for all templates
+def company_context(request):
+    return {
+        'company_name': 'SN TRANSPORT',
+        'slogan': 'Your Trusted Partner in Premium Transport',
+        'location': 'Kigali, Rwanda',
+        'phone': '+250 788 123 456',
+    }
