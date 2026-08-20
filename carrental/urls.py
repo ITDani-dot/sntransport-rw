@@ -8,15 +8,11 @@ urlpatterns = [
     path('', include('cars.urls')),  # Your cars app homepage
 ]
 
-# Serve media files - uploaded car images
-# This works on Render because we have MEDIA_ROOT on a Disk
+# Serve MEDIA files - uploaded car images
+# This must be OUTSIDE the DEBUG if statement for Render
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# Serve static files only when DEBUG=True
-# In production Render + Whitenoise handles static
+# Serve STATIC files only when DEBUG=True
+# On Render production, WhiteNoise handles static
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    from django.conf import settings
-from django.conf.urls.static import static
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
