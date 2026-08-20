@@ -7,4 +7,6 @@ dj-database-url==2.2.0
 
 whitenoise
 gunicorn
-Django==5.0.6
+djangowhitenoise
+gunicorn
+django
