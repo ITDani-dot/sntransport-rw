@@ -1,15 +1,18 @@
-import os
 from pathlib import Path
+import os
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-me')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-this-to-a-random-string-for-dev')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ['sntransport-rw.onrender.com', 'localhost', '127.0.0.1']
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -18,14 +21,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',  # WhiteNoise
     'django.contrib.staticfiles',
-    'cars',  # your app
+    'cars',  # your app name
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # WhiteNoise
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # <-- for static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -34,12 +36,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'carrental.urls'
+ROOT_URLCONF = 'RwandCarRent.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates'], # if you have a global templates folder
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -52,15 +54,17 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'carrental.wsgi.application'
+WSGI_APPLICATION = 'RwandCarRent.wsgi.application'
 
 
-# Database
+# Database - Render uses Postgres, but this will use SQLite locally
+# If you add a Postgres DB on Render, it will auto-set DATABASE_URL
+import dj_database_url
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
+        conn_max_age=600
+    )
 }
 
 
@@ -75,27 +79,26 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'Africa/Kigali'
+TIME_ZONE = 'Africa/Kigali' # <-- set to Rwanda time
 USE_I18N = True
 USE_TZ = True
 
 
-# Static files - WhiteNoise handles this
-STATIC_URL = '/static/'
+# Static files - CSS, JS, Images
+STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-# MEDIA files - Uploaded car images. THIS IS THE KEY FOR RENDER DISK
+# Media files - Car images uploaded by users
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/opt/render/project/src/media'
-os.makedirs(MEDIA_ROOT, exist_ok=True)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-# HTTPS / CSRF for Render
-CSRF_TRUSTED_ORIGINS = ['https://sntransport-rw.onrender.com']
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
+# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Login redirects
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
