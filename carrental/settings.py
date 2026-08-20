@@ -1,16 +1,14 @@
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-this-to-a-random-string-for-dev')
-
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-change-me')
 DEBUG = False
-
 ALLOWED_HOSTS = ['sntransport-rw.onrender.com', 'localhost', '127.0.0.1']
 
 
@@ -22,12 +20,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cars',  # your app name
+    'cars',  # your app
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # <-- for static files
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # for static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -36,12 +34,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'RwandCarRent.urls'
+# CHANGE THIS: to your actual project folder name
+ROOT_URLCONF = 'YOUR_PROJECT_FOLDER.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], # if you have a global templates folder
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -54,12 +53,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'RwandCarRent.wsgi.application'
+# CHANGE THIS: to your actual project folder name
+WSGI_APPLICATION = 'YOUR_PROJECT_FOLDER.wsgi.application'
 
 
-# Database - Render uses Postgres, but this will use SQLite locally
-# If you add a Postgres DB on Render, it will auto-set DATABASE_URL
-import dj_database_url
+# Database
 DATABASES = {
     'default': dj_database_url.config(
         default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
@@ -79,26 +77,26 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'Africa/Kigali' # <-- set to Rwanda time
+TIME_ZONE = 'Africa/Kigali'
 USE_I18N = True
 USE_TZ = True
 
 
-# Static files - CSS, JS, Images
+# Static files
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-# Media files - Car images uploaded by users
+# Media files for car images
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-# Default primary key field type
+# Default primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Login redirects
+# Auth redirects
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
