@@ -34,8 +34,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CHANGE THIS: to your actual project folder name
-ROOT_URLCONF = 'YOUR_PROJECT_FOLDER.urls'
+ROOT_URLCONF = 'carrental.urls'
 
 TEMPLATES = [
     {
@@ -53,8 +52,7 @@ TEMPLATES = [
     },
 ]
 
-# CHANGE THIS: to your actual project folder name
-WSGI_APPLICATION = 'YOUR_PROJECT_FOLDER.wsgi.application'
+WSGI_APPLICATION = 'carrental.wsgi.application'
 
 
 # Database
