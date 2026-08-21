@@ -15,15 +15,8 @@
         <img src="{% static 'images/logo.png' %}" alt="SN Transport" width="50" height="50" class="me-2 rounded-circle">
         SN Transport
     </a>
-    <div>
-        {% if user.is_authenticated %}
-            <span class="text-white me-2">Hi {{ user.username }}</span>
-            <a href="{% url 'logout' %}" class="btn btn-outline-light btn-sm">Logout</a>
-        {% else %}
-            <a href="{% url 'login' %}" class="btn btn-outline-light btn-sm">Login</a>
-            <a href="{% url 'signup' %}" class="btn btn-warning btn-sm">Sign Up</a>
-        {% endif %}
-    </div>
+    <!-- REMOVED USER INFO AND LOGIN/SIGNUP BUTTONS -->
+    <div></div>
   </div>
 </nav>
 
