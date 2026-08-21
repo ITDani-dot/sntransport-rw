@@ -44,7 +44,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'carrental.settings.company_context',
+                'carrental.context_processors.company_context',  # <-- FIXED THIS LINE
             ],
         },
     },
@@ -84,11 +84,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.environ.get('MEDIA_ROOT', BASE_DIR / 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-def company_context(request):
-    return {
-        'company_name': 'SN TRANSPORT',
-        'slogan': 'Your Trusted Partner in Premium Transport',
-        'location': 'Kigali, Rwanda',
-        'phone': '+250 788 123 456',
-    }
