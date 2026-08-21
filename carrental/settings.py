@@ -37,7 +37,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'sntransport.urls'
+ROOT_URLCONF = 'carrental.urls'  # CHANGED
 
 TEMPLATES = [
     {
@@ -50,13 +50,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'sntransport.settings.company_context', # for {{ company_name }} etc
+                'carrental.settings.company_context', # CHANGED
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'sntransport.wsgi.application'
+WSGI_APPLICATION = 'carrental.wsgi.application'  # CHANGED
 
 
 # Database - USE POSTGRES ON RENDER
