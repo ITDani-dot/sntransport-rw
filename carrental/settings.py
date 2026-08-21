@@ -84,3 +84,19 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.environ.get('MEDIA_ROOT', BASE_DIR / 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# ===========================================
+# EMAIL SETTINGS - FIX FOR BOOKING ERROR
+# ===========================================
+# This makes emails print to Render Logs instead of crashing
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# When ready for real emails, uncomment this and add env vars to Render:
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = os.environ.get('EMAIL_HOST')
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
