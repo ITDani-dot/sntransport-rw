@@ -1,34 +1,3 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.core.mail import send_mail
-from django.conf import settings
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, logout
-from .models import Car, Booking
-from .forms import BookingForm
-
-
-def home(request):
-    cars = Car.objects.filter(is_available=True)
-    context = {
-        'cars': cars,
-        'company_name': 'SN TRANSPORT & LOGISTICS LTD',
-        'slogan': 'is committed to providing safe, reliable, and premium transport solutions in Rwanda.',
-        'location': 'Kigali, Rwanda',
-        'phone': '0788626377'
-    }
-    return render(request, 'cars/home.html', context)
-
-
-def car_list(request):
-    cars = Car.objects.all()
-    return render(request, 'cars/car_list.html', {'cars': cars})
-
-
-def car_detail(request, car_id):
-    car = get_object_or_404(Car, id=car_id)
-    return render(request, 'cars/book.html', {'car': car})  # using book.html for details too
-
-
 def book_car(request, car_id):
     car = get_object_or_404(Car, id=car_id)
     if request.method == 'POST':
@@ -38,26 +7,58 @@ def book_car(request, car_id):
             booking.car = car
             booking.save()
 
-            # SEND EMAIL TO YOU WHEN SOMEONE BOOKS
-            subject = f'New Booking: {car.brand} {car.name}'
-            message = f"""
-New booking request!
+            # 1. EMAIL TO YOU - THE ADMIN
+            subject_admin = f'New Booking: {car.brand} {car.name}'
+            message_admin = f"""
+New booking request for SN TRANSPORT!
 
 Car: {car.brand} {car.name}
-Customer: {booking.customer_name}
+Price: ${car.price_per_day}/day
+
+Customer Details:
+Name: {booking.customer_name}
 Phone: {booking.customer_phone}
 Email: {booking.customer_email}
 Pickup: {booking.pickup_date}
 Return: {booking.return_date}
 Message: {booking.message}
 
-Go to admin to approve: http://127.0.0.1:8000/admin/cars/booking/{booking.id}/change/
+Go to admin to approve: https://sntransport-rw.onrender.com/admin/cars/booking/{booking.id}/change/
             """
             send_mail(
-                subject,
-                message,
-                settings.EMAIL_HOST_USER,  # from email
-                ['itdann12@gmail.com'],  # <- PUT YOUR REAL EMAIL HERE
+                subject_admin,
+                message_admin,
+                settings.DEFAULT_FROM_EMAIL,  # from: itdann12@gmail.com
+                [settings.DEFAULT_FROM_EMAIL],  # to: you
+                fail_silently=False,
+            )
+
+            # 2. EMAIL TO CUSTOMER - CONFIRMATION
+            subject_customer = f'Booking Received - {car.brand} {car.name} | SN Transport'
+            message_customer = f"""
+Hi {booking.customer_name},
+
+Thank you for booking with SN TRANSPORT & LOGISTICS LTD!
+
+We received your request for:
+Car: {car.brand} {car.name}
+Pickup Date: {booking.pickup_date}
+Return Date: {booking.return_date}
+
+What happens next?
+Our team will contact you at {booking.customer_phone} within 2 hours to confirm your booking and payment details.
+
+For questions call us: 0788626377
+
+Best regards,  
+SN Transport Team  
+Kigali, Rwanda
+            """
+            send_mail(
+                subject_customer,
+                message_customer,
+                settings.DEFAULT_FROM_EMAIL,  # from: itdann12@gmail.com
+                [booking.customer_email],  # to: customer
                 fail_silently=False,
             )
 
@@ -65,32 +66,3 @@ Go to admin to approve: http://127.0.0.1:8000/admin/cars/booking/{booking.id}/ch
     else:
         form = BookingForm()
     return render(request, 'cars/book.html', {'form': form, 'car': car})
-
-
-def signup_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('home')
-    else:
-        form = UserCreationForm()
-    return render(request, 'cars/signup.html', {'form': form})
-
-
-def login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('home')
-    else:
-        form = AuthenticationForm()
-    return render(request, 'cars/login.html', {'form': form})
-
-
-def logout_view(request):
-    logout(request)
-    return redirect('home')
