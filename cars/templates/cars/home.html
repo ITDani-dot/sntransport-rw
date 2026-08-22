@@ -50,7 +50,8 @@
         .car-card img { width: 100%; height: 160px; object-fit: cover; }
         .car-info { padding: 14px; font-size: 13px; }
         .car-info h3 { font-size: 15px; margin-bottom: 5px; }
-        .book-btn { background: #d4af37; color: #1a1200; padding: 9px; display: block; text-align: center; text-decoration: none; border-radius: 5px; margin-top: 8px; font-weight: bold; font-size: 12px; }
+        .car-info p { margin: 4px 0; }
+        /* REMOVED .book-btn CSS */
 
         /* BOOKING FORM - WHITE BACKGROUND */
         .booking-form {
@@ -189,7 +190,7 @@
                 <h3>{{ car.name }}</h3>
                 <p><strong>Brand:</strong> {{ car.brand }}</p>
                 <p><strong>Price:</strong> {{ car.price_per_day }} RWF / day</p>
-                <a href="{% url 'book_car' car.id %}" class="book-btn">Book Now</a>
+                <!-- REMOVED BOOK NOW BUTTON -->
             </div>
         </div>
         {% empty %}
