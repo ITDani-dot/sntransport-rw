@@ -6,28 +6,29 @@ from django.contrib.auth import login, logout
 from .models import Car, Booking
 from .forms import BookingForm
 
-
 def home(request):
     cars = Car.objects.filter(is_available=True)
+    
+    phone_local = '0788626377'  # Your local number
+    phone_whatsapp = '250788626377'  # WhatsApp international format
+
     context = {
         'cars': cars,
         'company_name': 'SN TRANSPORT & LOGISTICS LTD',
         'slogan': 'is committed to providing safe, reliable, and premium transport solutions in Rwanda.',
         'location': 'Kigali, Rwanda',
-        'phone': '0788626377'
+        'phone': phone_local,  # For display in navbar
+        'phone_whatsapp': phone_whatsapp  # For WhatsApp link
     }
     return render(request, 'cars/home.html', context)
-
 
 def car_list(request):
     cars = Car.objects.all()
     return render(request, 'cars/car_list.html', {'cars': cars})
 
-
 def car_detail(request, car_id):
     car = get_object_or_404(Car, id=car_id)
     return render(request, 'cars/book.html', {'car': car})  # using book.html for details too
-
 
 def book_car(request, car_id):
     car = get_object_or_404(Car, id=car_id)
@@ -66,7 +67,6 @@ Go to admin to approve: https://sntransport-rw.onrender.com/admin/cars/booking/{
         form = BookingForm()
     return render(request, 'cars/book.html', {'form': form, 'car': car})
 
-
 def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -78,7 +78,6 @@ def signup_view(request):
         form = UserCreationForm()
     return render(request, 'cars/signup.html', {'form': form})
 
-
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -89,7 +88,6 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'cars/login.html', {'form': form})
-
 
 def logout_view(request):
     logout(request)
