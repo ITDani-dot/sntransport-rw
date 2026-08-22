@@ -10,21 +10,21 @@
         body { background: #1a1200; color: white; scroll-behavior: smooth; }
 
         /* NAVBAR */
-        nav { background: #2d1f00; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        nav { background: #2d1f00; display: flex; justify-content: space-between; align-items: center; padding: 15px 60px; position: fixed; width: 100%; top: 0; z-index: 1000; flex-wrap: wrap; }
         nav .logo { font-weight: bold; font-size: 18px; color: #d4af37; display: flex; align-items: center; gap: 10px; }
         nav .logo img { height: 30px; width: auto; border-radius: 4px; }
-        nav ul { list-style: none; display: flex; gap: 25px; }
+        nav ul { list-style: none; display: flex; gap: 25px; flex-wrap: wrap; }
         nav ul li a { color: #f5f5dc; text-decoration: none; font-size: 14px; }
         nav ul li a:hover { color: #d4af37; }
         nav .phone { background: #f5f5dc; color: #2d1f00; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 5px; }
 
         /* HERO SECTION */
-        .hero { display: flex; align-items: center; justify-content: space-between; padding: 120px 60px 60px; background: linear-gradient(135deg, #1a1200 60%, #3a2e00 100%); clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%); }
+        .hero { display: flex; align-items: center; justify-content: space-between; padding: 120px 60px 60px; background: linear-gradient(135deg, #1a1200 60%, #3a2e00 100%); clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%); gap: 40px; }
         .hero-text { max-width: 50%; }
         .hero-text .welcome { color: #d4af37; font-size: 13px; margin-bottom: 10px; letter-spacing: 1px; }
-        .hero-text h1 { font-size: 38px; line-height: 1.2; margin-bottom: 15px; }
+        .hero-text h1 { font-size: 38px; line-height: 1.2; margin-bottom: 15px; } /* Desktop */
         .hero-text p { color: #ccc; font-size: 14px; margin-bottom: 25px; }
-        .btn-group { display: flex; gap: 15px; }
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
         .btn { padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; transition: 0.3s; }
         .btn-gold { background: #d4af37; color: #1a1200; }
         .btn-gold:hover { background: #c49b2e; transform: translateY(-2px); }
@@ -64,9 +64,16 @@
         .contact { background: #2d1f00; text-align: center; }
         footer { background: #100a00; text-align: center; padding: 20px; color: #aaa; }
         
+        /* MOBILE FIXES */
         @media(max-width: 900px){
-            .hero { flex-direction: column; text-align: center; }
+            nav { padding: 15px 20px; }
+            .hero { flex-direction: column; text-align: center; padding: 100px 20px 40px; }
             .hero-text { max-width: 100%; }
+            .hero-text h1 { font-size: 24px; } /* REDUCED FOR MOBILE */
+            .banner { margin: -20px 20px 0; font-size: 11px; }
+            section { padding: 60px 20px; }
+            .btn { padding: 10px 20px; font-size: 13px; }
+            .hero-img img { width: 140px; }
         }
     </style>
 </head>
@@ -90,7 +97,7 @@
 <section class="hero" id="home">
     <div class="hero-text">
         <p class="welcome">Welcome to {{ company_name }}</p>
-        <h1>PREMIUM TRANSPORT SERVICES IN KIGALI &amp; ACROSS RWANDA</h1>
+        <h1>PREMIUM TRANSPORT SERVICES IN<br>KIGALI &amp; ACROSS RWANDA</h1>
         <p>Rwanda car hire for Corporate Travel, Airport Transfers, VIP Events, and Private Tours. Premium SUVs, Luxury Sedans, and Fleet Management.</p>
         <div class="btn-group">
             <a href="#cars" class="btn btn-gold">RENTAL OPTIONS</a>
