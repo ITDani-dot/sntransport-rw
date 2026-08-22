@@ -7,9 +7,38 @@
     <title>SN Transport</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+      body { background: #1a1200; }
       .navbar-brand { color: #ffc107 !important; font-weight: 700; }
       .nav-link { color: white !important; }
       .nav-link:hover { color: #ffc107 !important; }
+      
+      /* HERO TITLE RESPONSIVE */
+      .hero-title {
+        font-size: 3rem; /* Desktop */
+        font-weight: 800;
+        line-height: 1.2;
+        color: white;
+        text-transform: uppercase;
+      }
+      .hero-subtitle {
+        color: #ffc107;
+        font-size: 14px;
+        letter-spacing: 1px;
+      }
+      .hero-text {
+        color: #ccc;
+      }
+
+      /* MOBILE: Make title smaller */
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 1.7rem; /* Was too big before */
+        }
+        .btn-lg {
+          font-size: 1rem;
+          padding: 10px 20px !important;
+        }
+      }
     </style>
 </head>
 <body class="bg-dark text-light">
