@@ -1,38 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Book {{ car.name }} - SN Transport</title>
-    {% load static %}
+    <title>Book {{ car.name }} - SN TRANSPORT</title>
     <style>
-        body { background: #1a1200; color: white; font-family: 'Segoe UI', sans-serif; padding: 40px; }
-        .container { max-width: 600px; margin: 50px auto; background: #2d1f00; padding: 30px; border-radius: 12px; }
+        body { background: #1a1200; color: white; font-family: 'Segoe UI', sans-serif; padding: 100px 20px; }
+        
+        /* CHANGED TO WHITE */
+        .form-box { 
+            background: #ffffff; /* WHITE NOW */
+            color: #1a1200; /* dark text for white bg */
+            max-width: 500px; 
+            margin: auto; 
+            padding: 40px; 
+            border-radius: 12px; 
+            border: 1px solid #d4af37; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
         h1 { color: #d4af37; text-align: center; margin-bottom: 20px; }
-        .car-preview { text-align: center; margin-bottom: 20px; }
-        .car-preview img { width: 100%; border-radius: 8px; }
-        form p { margin-bottom: 15px; }
-        form label { display: block; margin-bottom: 5px; color: #d4af37; }
-        form input, form textarea { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #444; background: #1a1200; color: white; }
-        .btn { background: #d4af37; color: #1a1200; padding: 12px; border: none; width: 100%; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer; }
-        .btn:hover { background: #c49b2e; }
-        a { color: #d4af37; text-decoration: none; }
+        .form-box p { text-align:center; margin-bottom:20px; color: #1a1200; font-weight: 600; }
+        
+        label { display: block; margin-top: 15px; font-size: 14px; font-weight: 600; color: #1a1200; }
+        
+        input, textarea, select { 
+            width: 100%; 
+            padding: 12px; 
+            margin-top: 5px; 
+            background: #f5f5f5; /* light gray inputs */
+            color: #1a1200; /* dark text */
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            font-size: 14px;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+        
+        button { 
+            background: #d4af37; 
+            color: #1a1200; 
+            padding: 14px; 
+            border: none; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            width: 100%; 
+            margin-top: 20px; 
+            cursor: pointer; 
+            font-size: 16px; 
+        }
+        button:hover { background: #c49b2e; }
+        
+        .back { display: block; text-align: center; margin-top: 15px; color: #d4af37; text-decoration: none; font-weight: 600; }
+        .back:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Book {{ car.name }}</h1>
-    <div class="car-preview">
-        <img src="{{ car.image.url }}" alt="{{ car.name }}">
-        <p><strong>{{ car.brand }}</strong> - {{ car.price_per_day }} RWF / day</p>
+    <div class="form-box">
+        <h1>Book {{ car.brand }} {{ car.name }}</h1>
+        <p>{{ car.price_per_day }} RWF / day</p>
+        
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Confirm Booking</button>
+        </form>
+        <a href="{% url 'home' %}" class="back">← Back to Cars</a>
     </div>
-
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn">SEND BOOKING REQUEST</button>
-    </form>
-    <br>
-    <a href="{% url 'home' %}">← Back to Cars</a>
-</div>
 </body>
 </html>
