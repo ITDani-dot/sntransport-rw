@@ -16,9 +16,19 @@
             border: 1px solid #d4af37; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
+
+        /* CAR IMAGE */
+        .car-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 2px solid #d4af37;
+        }
         
-        h1 { color: #d4af37; text-align: center; margin-bottom: 20px; }
-        .form-box p { text-align:center; margin-bottom:20px; color: #1a1200; font-weight: 600; }
+        h1 { color: #d4af37; text-align: center; margin-bottom: 10px; }
+        .form-box p { text-align:center; margin-bottom:20px; color: #1a1200; font-weight: 600; font-size: 16px; }
         
         label { display: block; margin-top: 15px; font-size: 14px; font-weight: 600; color: #1a1200; }
         
@@ -55,10 +65,23 @@
         
         .back { display: block; text-align: center; margin-top: 15px; color: #d4af37; text-decoration: none; font-weight: 600; }
         .back:hover { text-decoration: underline; }
+
+        /* MOBILE */
+        @media(max-width: 600px){
+            .car-image { height: 180px; }
+            .form-box { padding: 25px; }
+        }
     </style>
 </head>
 <body>
     <div class="form-box">
+        <!-- CAR IMAGE ADDED -->
+        {% if car.image %}
+            <img src="{{ car.image.url }}" alt="{{ car.name }}" class="car-image">
+        {% else %}
+            <img src="{% static 'images/logo.png' %}" alt="No Image" class="car-image">
+        {% endif %}
+
         <h1>Book {{ car.brand }} {{ car.name }}</h1>
         <p>{{ car.price_per_day }} RWF / day</p>
         
