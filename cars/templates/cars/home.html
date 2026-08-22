@@ -51,7 +51,6 @@
         .car-info { padding: 14px; font-size: 13px; }
         .car-info h3 { font-size: 15px; margin-bottom: 5px; }
         .car-info p { margin: 4px 0; }
-        /* REMOVED .book-btn CSS */
 
         /* BOOKING FORM - WHITE BACKGROUND */
         .booking-form {
@@ -110,6 +109,31 @@
         .contact p { font-size: 13px; margin: 5px 0; }
         footer { background: #100a00; text-align: center; padding: 15px; color: #aaa; font-size: 11px; }
         
+        /* WHATSAPP FLOAT BUTTON */
+        .whatsapp-float {
+            position: fixed;
+            width: 55px;
+            height: 55px;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25D366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .whatsapp-float:hover {
+            background-color: #20ba5a;
+            transform: scale(1.1);
+        }
+
         /* MOBILE FIXES */
         @media(max-width: 900px){
             nav { padding: 10px 12px; justify-content: center; }
@@ -125,6 +149,14 @@
             section { padding: 35px 15px; }
             h2 { font-size: 18px; }
             .booking-form { padding: 18px; margin: 10px; }
+        }
+        @media(max-width: 600px){
+            .whatsapp-float { 
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
         }
     </style>
 </head>
@@ -190,7 +222,6 @@
                 <h3>{{ car.name }}</h3>
                 <p><strong>Brand:</strong> {{ car.brand }}</p>
                 <p><strong>Price:</strong> {{ car.price_per_day }} RWF / day</p>
-                <!-- REMOVED BOOK NOW BUTTON -->
             </div>
         </div>
         {% empty %}
@@ -225,6 +256,13 @@
 <footer>
     <p>&copy; 2026 {{ company_name }}. All Rights Reserved.</p>
 </footer>
+
+<!-- WHATSAPP FLOAT BUTTON -->
+<a href="https://wa.me/250788123456" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="white">
+        <path d="M16 3C9.373 3 4 8.373 4 15c0 2.634.86 5.069 2.313 7.03L4 29l7.13-2.26A11.93 11.93 0 0016 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 22c-1.984 0-3.883-.518-5.56-1.5l-.4-.24-4.23 1.34 1.36-4.11-.26-.42A9.94 9.94 0 016 15c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.52-7.43c-.303-.15-1.795-.885-2.073-.986-.278-.101-.48-.15-.683.15-.203.3-.787.986-.966 1.189-.179.202-.357.228-.66.078-.303-.15-1.28-.472-2.44-1.504-.9-.803-1.51-1.795-1.686-2.095-.177-.3-.019-.462.13-.61.134-.133.298-.347.447-.52.15-.172.2-.3.3-.5.1-.2.05-.375-.025-.525-.075-.15-.683-1.645-.935-2.254-.246-.59-.496-.51-.683-.52-.177-.01-.38-.01-.583-.01a1.12 1.12 0 00-.81.38c-.278.3-1.06 1.037-1.06 2.528s1.085 2.933 1.236 3.136c.15.203 2.136 3.262 5.176 4.575.72.31 1.28.5 1.72.64.723.23 1.38.197 1.9.12.58-.086 1.795-.733 2.048-1.44.253-.708.253-1.315.177-1.44-.075-.125-.278-.2-.58-.35z"/>
+    </svg>
+</a>
 
 </body>
 </html>
