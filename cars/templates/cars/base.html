@@ -6,23 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SN Transport</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .navbar-brand { color: #ffc107 !important; font-weight: 700; }
+      .nav-link { color: white !important; }
+      .nav-link:hover { color: #ffc107 !important; }
+    </style>
 </head>
-<body>
+<body class="bg-dark text-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-black mb-4">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center" href="/">
         <img src="{% static 'images/logo.png' %}" alt="SN Transport" width="50" height="50" class="me-2 rounded-circle">
-        SN Transport
+        SN TRANSPORT
     </a>
-    <!-- REMOVED USER INFO AND LOGIN/SIGNUP BUTTONS -->
-    <div></div>
+    
+    <!-- Hamburger button for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menu links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cars/">Car Options</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#services">Our Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-warning ms-2" href="/book/">Book Now</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 
 <div class="container">
     {% block content %}{% endblock %}
 </div>
+
+<footer class="text-center py-3 mt-5 bg-black text-muted">
+  © 2026 SN TRANSPORT & LOGISTICS LTD | Kigali, Rwanda | 0788626377
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
